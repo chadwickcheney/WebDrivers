@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <link rel="stylesheet" type="text/css" href="{% static 'assure/style.css' %}">
+  </head>
+  <body>
+    <div class="context">
+        {% if supposition_list %}
+            {% for supposition in supposition_list %}
+                <table>
+                    <tr>
+                        <th>supposistion</th>
+                        <th>importance</th>
+                        <th>details</th>
+                        <th>steps to manifest</th>
+                        <th>screenshot</th>
+                        <th>date published</th>
+                        <th>response</th>
+                    </tr>
+                    <tr>
+                        <td>{{ suppositiion.note }}</td>
+                        <td>{{ suppositiion.importance }}</td>
+                        <td>{{ suppositiion.details }}</td>
+                        <td>{{ suppositiion.steps_to_manifest }}</td>
+                        <td>{{ suppositiion.screenshot }}</td>
+                        <td>{{ suppositiion.pub_date }}</td>
+                        <td>
+                            {% if supposition.response %}
+                                {% for response in supposition.response %}
+                                    <li>{{ response.needs_clarification }}</li>
+                                    <li>{{ response.in_progess }}</li>
+                                    <li>{{ response.check_again }}</li>
+                                    <li>{{ response.fixed }}</li>
+                                    <li>{{ response.note }}</li>
+                                {% endfor %}
+                            {% else %}
+                                <div class="add-response">
+                                     {% if form %}
+                                       <div class="response-form">
+                                          <form method="post">
+                                            {% csrf_token %}
+                                            <div class="input-wrapper">
+                                              <div class="input">
+                                                  <div class="field">
+                                                      {{ form.needs_clarifcation }}
+                                                  </div>
+                                                  <div class="control">
+                                                      <button type="submit" class="button is-info">
+                                                          add response
+                                                      </button>
+                                                  </div>
+                                                  
+                                                   <div class="field">
+                                                      {{ form.in_progess }}
+                                                  </div>
+                                                  <div class="control">
+                                                      <button type="submit" class="button is-info">
+                                                          add response
+                                                      </button>
+                                                  </div>
+                                                  
+                                                   <div class="field">
+                                                      {{ form.check_again }}
+                                                  </div>
+                                                  <div class="control">
+                                                      <button type="submit" class="button is-info">
+                                                          add response
+                                                      </button>
+                                                  </div>
+                                                  
+                                                   <div class="field">
+                                                      {{ form.fixed }}
+                                                  </div>
+                                                  <div class="control">
+                                                      <button type="submit" class="button is-info">
+                                                          add response
+                                                      </button>
+                                                  </div>
+                                                  
+                                                   <div class="field">
+                                                      {{ form.note }}
+                                                  </div>
+                                                  <div class="control">
+                                                      <button type="submit" class="button is-info">
+                                                          add response
+                                                      </button>
+                                                  </div>
+                                            </div>
+                                          </form>
+                                        </div>
+                                      {% endif %}
+                                </div>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            {% endfor %}
+        {% else %}
+            <div class="add-supposition">
+                {% if form %}
+                   <div class="supposition-form">
+                      <form method="post">
+                        {% csrf_token %}
+                        <div class="input-wrapper">
+                          <div class="input">
+                              <div class="field">
+                                  {{ form. }}
+                              </div>
+                              <div class="control">
+                                  <button type="submit" class="button is-info" autofocus>
+                                      add suppostion
+                                  </button>
+                              </div>
+                        </div>
+                      </form>
+                    </div>
+                  {% endif %}
+            </div>
+        {% endif %}
+    </div>
+  </body>
+</html>

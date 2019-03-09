@@ -1,1 +1,47 @@
-Index
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <link rel="stylesheet" type="text/css" href="{% static 'assure/style.css' %}">
+  </head>
+  <body>
+    <div class="add">
+      {% if form %}
+       <div class="address">
+          <form method="post">
+            {% csrf_token %}
+            <div class="input-wrapper">
+              <div class="input">
+                  <div class="field">
+                      {{ form.url }}
+                  </div>
+                  <div class="control">
+                      <button type="submit" class="button is-info" autofocus>
+                          run report
+                      </button>
+                  </div>
+            </div>
+          </form>
+        </div>
+      {% endif %}
+    </div>
+    <div class="context">
+        {% if site_list %}
+        {% for site in site_list %}
+            <table>
+                <tr>
+                    <th>Site</th>
+                    <th>No. Suppositions</th>
+                    <th>Severity level</th>
+                </tr>
+                <tr>
+                    <td><code><a href="{% url 'glasses:detail' site.id %}">{{ site.url }}</a></code></td>
+                    <td>{{ site.num_suppositions }}</td>
+                    <td>{{ site.threat_level }}</td>
+                </tr>
+            </table>
+        {% endfor %}
+        {% endif %}
+    </div>
+  </body>
+</html>
